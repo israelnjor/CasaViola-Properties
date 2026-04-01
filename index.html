@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Viola Application Form</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <!-- <img class = "logo" src="logo.png" alt="Casa Viola Properties Logo"> -->
+    <h1>Casa Viola Properties Application Form</h1>
+    <p>Join Casa Viola Properties – Your Next Career Step</p>
+</header>
+
+<!-- FORM CONTAINER -->
+<div class="container">
+    <form id="applicationForm">
+
+        <!-- PAGE 1: Personal Information -->
+        <div class="form-page" id="page1">
+            <h2>Personal Information</h2>
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" required>
+
+            <label for="ghanaCard">Ghana Card Number *</label>
+            <input type="text" id="ghanaCard" required>
+
+            <label for="phone">Phone Number *</label>
+            <input type="text" id="phone" required>
+
+            <label for="whatsapp">WhatsApp Number *</label>
+            <input type="text" id="whatsapp" required>
+
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" required>
+
+            <label for="address">Residential Address</label>
+            <input type="text" id="address">
+
+            <div class="button-group">
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </div>
+
+        <!-- PAGE 2: Education -->
+        <div class="form-page" id="page2">
+            <h2>Educational Background</h2>
+
+            <label for="education">Highest Level of Education *</label>
+            <select id="education" required>
+                <option value="">Select</option>
+                <option>SHS</option>
+                <option>Diploma</option>
+                <option>Bachelor's</option>
+                <option>Master's</option>
+                <option>Other</option>
+            </select>
+
+            <label for="institution">Institution *</label>
+            <input type="text" id="institution" required>
+
+            <label for="yearCompleted">Year Completed *</label>
+            <input type="number" id="yearCompleted" required>
+
+            <label for="certifications">Other Certifications</label>
+            <textarea id="certifications" rows="3"></textarea>
+
+            <div class="button-group">
+                <button type="button" class="prev-btn">Previous</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </div>
+
+        <!-- PAGE 3: Professional Experience -->
+        <div class="form-page" id="page3">
+            <h2>Professional Experience</h2>
+
+            <label for="currentEmployment">Current / Most Recent Employment *</label>
+            <input type="text" id="currentEmployment" required>
+
+            <label for="employer">Employer *</label>
+            <input type="text" id="employer" required>
+
+            <label for="position">Position *</label>
+            <input type="text" id="position" required>
+
+            <label for="duration">Duration (From – To) *</label>
+            <input type="text" id="duration" required>
+
+            <label for="salesTarget">Monthly Sales Target (if any)</label>
+            <input type="text" id="salesTarget">
+
+            <label for="previousExperience">Previous Real Estate / Sales Experience</label>
+            <textarea id="previousExperience" rows="3"></textarea>
+
+            <label for="keyAchievements">Key Achievements</label>
+            <textarea id="keyAchievements" rows="3"></textarea>
+
+            <div class="button-group">
+                <button type="button" class="prev-btn">Previous</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </div>
+
+        <!-- PAGE 4: Skills & Competencies -->
+        <div class="form-page" id="page4">
+            <h2>Skills & Competencies</h2>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="skills"> Prospecting & Lead Generation</label>
+                <label><input type="checkbox" name="skills"> Property Tours & Presentation</label>
+                <label><input type="checkbox" name="skills"> Client Negotiation & Closing</label>
+                <label><input type="checkbox" name="skills"> CRM Usage (Specify)</label>
+                <label><input type="checkbox" name="skills"> Real Estate Market Knowledge (Ghana)</label>
+                <label><input type="checkbox" name="skills"> Team Recruitment / Mentorship</label>
+                <label><input type="checkbox" name="skills"> High Value / Flagship Home Sales</label>
+                <label><input type="checkbox" name="skills"> Rental & Property Management Mandates</label>
+                <label><input type="checkbox" name="skills"> Other</label>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="prev-btn">Previous</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </div>
+
+        <!-- PAGE 5: Motivation & Career Goals -->
+        <div class="form-page" id="page5">
+            <h2>Motivation & Career Goals</h2>
+
+            <label for="motivation">Why do you want to join Casa Viola Properties as a Sales Agent? *</label>
+            <textarea id="motivation" rows="4" required></textarea>
+
+            <label>Which career level are you most excited to reach first? *</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="careerLevel"> Starter Level (Associate – The Grid)</label>
+                <label><input type="checkbox" name="careerLevel"> Momentum Level (Elite Consultant – The Sprint)</label>
+                <label><input type="checkbox" name="careerLevel"> Breakthrough Level (Prestige Broker – The Climb)</label>
+                <label><input type="checkbox" name="careerLevel"> Leadership Level (Portfolio Supervisor – The Summit)</label>
+                <label><input type="checkbox" name="careerLevel"> Ace Level (Grand Master – The Apex)</label>
+            </div>
+
+            <label for="salesGoal">Personal Sales Goal for the First 6 Months *</label>
+            <textarea id="salesGoal" rows="3" required></textarea>
+
+            <div class="button-group">
+                <button type="button" class="prev-btn">Previous</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </div>
+
+        <!-- PAGE 6: File Uploads -->
+        <div class="form-page" id="page6">
+            <h2>Attachments</h2>
+
+            <label for="ghanaCardFile">Upload Ghana Card *</label>
+            <input type="file" id="ghanaCardFile" accept=".jpg,.png,.pdf" required>
+
+            <label for="cvFile">Upload CV / Resume *</label>
+            <input type="file" id="cvFile" accept=".pdf,.doc,.docx" required>
+
+            <label for="otherFiles">Other Relevant Files</label>
+            <input type="file" id="otherFiles" accept=".pdf,.jpg,.png" multiple>
+
+            <div class="button-group">
+                <button type="button" class="prev-btn">Previous</button>
+                <button type="button" class="next-btn">Next</button>
+            </div>
+        </div>
+
+        <!-- PAGE 7: Declaration -->
+        <div class="form-page" id="page7">
+            <h2>Declaration of Intent</h2>
+
+            <label><input type="checkbox" required> I hereby declare that the information provided is true and accurate.</label>
+
+            <label for="fullNameDecl">Full Name *</label>
+            <input type="text" id="fullNameDecl" required>
+
+            <label for="dateDecl">Date *</label>
+            <input type="date" id="dateDecl" required>
+
+            <div class="button-group">
+                <button type="button" class="prev-btn">Previous</button>
+                <button type="submit">Submit Application</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<!-- FOOTER -->
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2026 Casa Viola Properties. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:info@casaviola.com">info@casaviola.com</a> | Phone: +233 123 456 789</p>
+        <p>Follow us: 
+            <a href="#">Facebook</a> | 
+            <a href="#">Instagram</a> | 
+            <a href="#">LinkedIn</a>
+        </p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
