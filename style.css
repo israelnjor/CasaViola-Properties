@@ -130,14 +130,17 @@ textarea {
 h2 {
     font-size: 1.5rem;
     margin-bottom: 15px;
-    border-bottom: 2px solid #f7bb55;
+    border-bottom: 2px solid #b9a43b;
     padding-bottom: 5px;
-
-    /* Gradient text */
-    background: linear-gradient(to right, #99700f, #fafaf9);
-    /* -webkit-background-clip: text; */
-    -webkit-text-fill-color: transparent;
     font-weight: bold;
+
+    /* Fallback color (VERY IMPORTANT) */
+    color: #99700f;
+
+    /* Gradient */
+    background: linear-gradient(to right, #99700f, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 

@@ -50,23 +50,35 @@ prevBtns.forEach(btn => {
 // ==============================
 
 function validatePage(index) {
-    const inputs = formPages[index].querySelectorAll(
-        "input[required], select[required], textarea[required]"
+    const page = formPages[index];
+
+    // Validate normal inputs
+    const inputs = page.querySelectorAll(
+        "input:not([type='checkbox'])[required], select[required], textarea[required]"
     );
 
     for (let input of inputs) {
-        if (input.type === "checkbox") {
-            const name = input.name;
-            const checked = formPages[index].querySelectorAll(
-                `input[name="${name}"]:checked`
-            );
-            if (checked.length === 0) {
-                alert("Please select at least one option.");
-                return false;
-            }
-        } else if (input.value.trim() === "") {
+        if (input.value.trim() === "") {
             alert("Please complete all required fields.");
             input.focus();
+            return false;
+        }
+    }
+
+    // ✅ Handle SKILLS (page 4)
+    if (page.id === "page4") {
+        const skillsChecked = page.querySelectorAll('input[name="skills"]:checked');
+        if (skillsChecked.length === 0) {
+            alert("Please select at least one skill.");
+            return false;
+        }
+    }
+
+    // ✅ Handle CAREER LEVEL (page 5)
+    if (page.id === "page5") {
+        const careerChecked = page.querySelectorAll('input[name="careerLevel"]:checked');
+        if (careerChecked.length === 0) {
+            alert("Please select at least one career level.");
             return false;
         }
     }
