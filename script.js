@@ -139,6 +139,24 @@ form.addEventListener("submit", (e) => {
     formData.append("fullNameDecl", document.getElementById("fullNameDecl").value);
     formData.append("dateDecl", document.getElementById("dateDecl").value);
 
+
+   //  from here
+    const ghanaCardFileInput = document.getElementById("ghanaCardFile");
+    if (ghanaCardFileInput.files.length > 0) {
+       formData.append("ghanaCardFile", ghanaCardFileInput.files[0]);
+    }
+
+    const cvFileInput = document.getElementById("cvFile");
+    if (cvFileInput.files.length > 0) {
+      formData.append("cvFile", cvFileInput.files[0]);
+    }
+
+    const otherFileInput = document.getElementById("otherFile");
+    if (otherFileInput.files.length > 0) {
+      formData.append("otherFiles", otherFileInput.files[0]);
+    }
+
+// to here
     // Send data to Google Sheets
     fetch(url, {
         method: "POST",
