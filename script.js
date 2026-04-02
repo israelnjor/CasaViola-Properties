@@ -60,61 +60,59 @@ function validatePage(index) {
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Final validation
     if(!validatePage(currentPage)) return;
 
-    // Collect form data
-    const formData = new FormData(form);
+    const url = "https://script.google.com/macros/s/AKfycbxav0cgAL0cIgJDdeGzfnTm-ET6Ybdzxn2FUIdjLbDGF7z6ZgzPMUF3Yq45mLfvcnpJ/exec";
 
-    // Here you can send the formData to Firebase, server, or API
-    // For demo, we'll log it
-    console.log("Form submitted successfully!");
-    for (let [key, value] of formData.entries()) {
-        console.log(key, ":", value);
-    }
+    // Collect checkboxes INSIDE submit
+    const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
+        .map(el => el.parentElement.innerText.trim())
+        .join(", ");
 
-    alert("Application submitted successfully! Thank you for applying.");
-    form.reset();
-    currentPage = 0;
-    showPage(currentPage);
-});
+    const careerLevel = Array.from(document.querySelectorAll('input[name="careerLevel"]:checked'))
+        .map(el => el.parentElement.innerText.trim())
+        .join(", ");
 
-const url = "https://script.google.com/macros/s/AKfycbxav0cgAL0cIgJDdeGzfnTm-ET6Ybdzxn2FUIdjLbDGF7z6ZgzPMUF3Yq45mLfvcnpJ/exec";
-
-
-fetch(url, {
-    method: "POST",
-    body: JSON.stringify({
-        fullName: document.getElementById("fullName").value,
-        ghanaCard: document.getElementById("ghanaCard").value,
-        phone: document.getElementById("phone").value,
-        whatsapp: document.getElementById("whatsapp").value,
-        email: document.getElementById("email").value,
-        address: document.getElementById("address").value,
-        education: document.getElementById("education").value,
-        institution: document.getElementById("institution").value,
-        yearCompleted: document.getElementById("yearCompleted").value,
-        certifications: document.getElementById("certifications").value,
-        currentEmployment: document.getElementById("currentEmployment").value,
-        employer: document.getElementById("employer").value,
-        position: document.getElementById("position").value,
-        duration: document.getElementById("duration").value,
-        salesTarget: document.getElementById("salesTarget").value,
-        previousExperience: document.getElementById("previousExperience").value,
-        keyAchievements: document.getElementById("keyAchievements").value,
-        skills: skills,
-        careerLevel: careerLevel,
-        motivation: document.getElementById("motivation").value,
-        salesGoal: document.getElementById("salesGoal").value,
-        fullNameDecl: document.getElementById("fullNameDecl").value,
-        dateDecl: document.getElementById("dateDecl").value
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+            fullName: document.getElementById("fullName").value,
+            ghanaCard: document.getElementById("ghanaCard").value,
+            phone: document.getElementById("phone").value,
+            whatsapp: document.getElementById("whatsapp").value,
+            email: document.getElementById("email").value,
+            address: document.getElementById("address").value,
+            education: document.getElementById("education").value,
+            institution: document.getElementById("institution").value,
+            yearCompleted: document.getElementById("yearCompleted").value,
+            certifications: document.getElementById("certifications").value,
+            currentEmployment: document.getElementById("currentEmployment").value,
+            employer: document.getElementById("employer").value,
+            position: document.getElementById("position").value,
+            duration: document.getElementById("duration").value,
+            salesTarget: document.getElementById("salesTarget").value,
+            previousExperience: document.getElementById("previousExperience").value,
+            keyAchievements: document.getElementById("keyAchievements").value,
+            skills: skills,
+            careerLevel: careerLevel,
+            motivation: document.getElementById("motivation").value,
+            salesGoal: document.getElementById("salesGoal").value,
+            fullNameDecl: document.getElementById("fullNameDecl").value,
+            dateDecl: document.getElementById("dateDecl").value
+        })
     })
-})
-.then(res => res.json())
-.then(data => {
-    alert("Application submitted successfully!");
-})
-.catch(err => console.error(err));
+    .then(res => res.json())
+    .then(data => {
+        alert("Application submitted successfully!");
+        form.reset();
+        currentPage = 0;
+        showPage(currentPage);
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Error submitting form");
+    });
+});
 
 // Collect checked skills
 const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
