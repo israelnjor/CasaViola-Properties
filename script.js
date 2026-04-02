@@ -95,7 +95,7 @@ form.addEventListener("submit", (e) => {
 
     if (!validatePage(currentPage)) return;
 
-    const url = "https://script.google.com/macros/s/AKfycbxN6MxrI9MhK9ivMCmi1F_vjAByFZziQidDwr_5ul0RdPmc3Eqt60pXa0gtGI_wN8fu/exec";
+    const url = "https://script.google.com/macros/s/AKfycbwf0iUfJ8sgRie4jFrH-3WlfGhOeoJ7MBEnmGXOOf7pNJsPPkT5foue6o7xBEIR4pi3/exec";
 
     // Collect checkbox values
     const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
