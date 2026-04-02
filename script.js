@@ -60,11 +60,11 @@ function validatePage(index) {
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    if(!validatePage(currentPage)) return;
+    if (!validatePage(currentPage)) return;
 
     const url = "https://script.google.com/macros/s/AKfycbxav0cgAL0cIgJDdeGzfnTm-ET6Ybdzxn2FUIdjLbDGF7z6ZgzPMUF3Yq45mLfvcnpJ/exec";
 
-    // Collect checkboxes INSIDE submit
+    // ✅ Collect checkboxes (ONLY ONCE, INSIDE submit)
     const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
         .map(el => el.parentElement.innerText.trim())
         .join(", ");
@@ -73,8 +73,13 @@ form.addEventListener("submit", (e) => {
         .map(el => el.parentElement.innerText.trim())
         .join(", ");
 
+    // ✅ Send data
     fetch(url, {
         method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
             fullName: document.getElementById("fullName").value,
             ghanaCard: document.getElementById("ghanaCard").value,
@@ -101,25 +106,17 @@ form.addEventListener("submit", (e) => {
             dateDecl: document.getElementById("dateDecl").value
         })
     })
-    .then(res => res.json())
-    .then(data => {
-        alert("Application submitted successfully!");
-        form.reset();
-        currentPage = 0;
-        showPage(currentPage);
+    .then(() => {
+        // ✅ Success feedback (since no-cors doesn't return response)
+        setTimeout(() => {
+            alert("Application submitted successfully!");
+            form.reset();
+            currentPage = 0;
+            showPage(currentPage);
+        }, 1000);
     })
     .catch(err => {
         console.error(err);
         alert("Error submitting form");
     });
 });
-
-// Collect checked skills
-const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
-    .map(el => el.parentElement.innerText.trim())
-    .join(", ");
-
-// Collect career levels
-const careerLevel = Array.from(document.querySelectorAll('input[name="careerLevel"]:checked'))
-    .map(el => el.parentElement.innerText.trim())
-    .join(", ");
