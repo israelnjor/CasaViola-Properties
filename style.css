@@ -135,7 +135,7 @@ h2 {
 
     /* Gradient text */
     background: linear-gradient(to right, #99700f, #fafaf9);
-    -webkit-background-clip: text;
+    /* -webkit-background-clip: text; */
     -webkit-text-fill-color: transparent;
     font-weight: bold;
 }
