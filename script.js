@@ -62,7 +62,7 @@ form.addEventListener("submit", (e) => {
 
     if (!validatePage(currentPage)) return;
 
-    const url = "https://script.google.com/macros/s/AKfycbxav0cgAL0cIgJDdeGzfnTm-ET6Ybdzxn2FUIdjLbDGF7z6ZgzPMUF3Yq45mLfvcnpJ/exec";
+    const url = "https://script.google.com/macros/s/AKfycbxN6MxrI9MhK9ivMCmi1F_vjAByFZziQidDwr_5ul0RdPmc3Eqt60pXa0gtGI_wN8fu/exec";
 
     // ✅ Collect checkboxes (ONLY ONCE, INSIDE submit)
     const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
