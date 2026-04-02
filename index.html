@@ -17,28 +17,28 @@
 
 <!-- FORM CONTAINER -->
 <div class="container">
-    <form id="applicationForm" nonvalidate>
+    <form id="applicationForm" novalidate>
 
         <!-- PAGE 1: Personal Information -->
         <div class="form-page" id="page1">
             <h2>Personal Information</h2>
             <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" required>
+            <input type="text" id="fullName" name="fullName" required>
 
             <label for="ghanaCard">Ghana Card Number *</label>
-            <input type="text" id="ghanaCard" required>
+            <input type="text" id="ghanaCard" name="ghanaCard" required>
 
             <label for="phone">Phone Number *</label>
-            <input type="text" id="phone" required>
+            <input type="text" id="phone" name="phone" required>
 
             <label for="whatsapp">WhatsApp Number *</label>
-            <input type="text" id="whatsapp" required>
+            <input type="text" id="whatsapp" name="whatsapp" required>
 
             <label for="email">Email Address *</label>
-            <input type="email" id="email" required>
+            <input type="email" id="email" name="email" required>
 
             <label for="address">Residential Address</label>
-            <input type="text" id="address">
+            <input type="text" id="address" name="address">
 
             <div class="button-group">
                 <button type="button" class="next-btn">Next</button>
@@ -60,13 +60,13 @@
             </select>
 
             <label for="institution">Institution *</label>
-            <input type="text" id="institution" required>
+            <input type="text" id="institution" name="institution" required>
 
             <label for="yearCompleted">Year Completed *</label>
-            <input type="number" id="yearCompleted" required>
+            <input type="number" id="yearCompleted" name="yearCompleted" required>
 
             <label for="certifications">Other Certifications</label>
-            <textarea id="certifications" rows="3"></textarea>
+            <textarea id="certifications" name="certifications" rows="3"></textarea>
 
             <div class="button-group">
                 <button type="button" class="prev-btn">Previous</button>
@@ -79,25 +79,25 @@
             <h2>Professional Experience</h2>
 
             <label for="currentEmployment">Current / Most Recent Employment *</label>
-            <input type="text" id="currentEmployment" required>
+            <input type="text" id="currentEmployment" name="currentEmployment" required>
 
             <label for="employer">Employer *</label>
-            <input type="text" id="employer" required>
+            <input type="text" id="employer" name="employer" required>
 
             <label for="position">Position *</label>
-            <input type="text" id="position" required>
+            <input type="text" id="position" name="position" required>
 
             <label for="duration">Duration (From – To) *</label>
-            <input type="text" id="duration" required>
+            <input type="text" id="duration" name="duration" required>
 
             <label for="salesTarget">Monthly Sales Target (if any)</label>
-            <input type="text" id="salesTarget">
+            <input type="text" id="salesTarget" name="salesTarget">
 
             <label for="previousExperience">Previous Real Estate / Sales Experience</label>
-            <textarea id="previousExperience" rows="3"></textarea>
+            <textarea id="previousExperience" name="previousExperience" rows="3"></textarea>
 
             <label for="keyAchievements">Key Achievements</label>
-            <textarea id="keyAchievements" rows="3"></textarea>
+            <textarea id="keyAchievements" name="keyAchievements" rows="3"></textarea>
 
             <div class="button-group">
                 <button type="button" class="prev-btn">Previous</button>
@@ -131,7 +131,7 @@
             <h2>Motivation & Career Goals</h2>
 
             <label for="motivation">Why do you want to join Casa Viola Properties as a Sales Agent? *</label>
-            <textarea id="motivation" rows="4" required></textarea>
+            <textarea id="motivation" name="motivation" rows="4" required></textarea>
 
             <label>Which career level are you most excited to reach first? *</label>
             <div class="checkbox-group">
@@ -156,13 +156,13 @@
             <h2>Attachments</h2>
 
             <label for="ghanaCardFile">Upload Ghana Card *</label>
-            <input type="file" id="ghanaCardFile" accept=".jpg,.png,.pdf" required>
+            <input type="file" id="ghanaCardFile" name="ghanaCardFile" accept=".jpg,.png,.pdf" required>
 
             <label for="cvFile">Upload CV / Resume *</label>
-            <input type="file" id="cvFile" accept=".pdf,.doc,.docx" required>
+            <input type="file" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx" required>
 
             <label for="otherFiles">Other Relevant Files</label>
-            <input type="file" id="otherFiles" accept=".pdf,.jpg,.png" multiple>
+            <input type="file" id="otherFiles" name="otherFiles" accept=".pdf,.jpg,.png" multiple>
 
             <div class="button-group">
                 <button type="button" class="prev-btn">Previous</button>
@@ -177,10 +177,10 @@
             <label><input type="checkbox" required> I hereby declare that the information provided is true and accurate.</label>
 
             <label for="fullNameDecl">Full Name *</label>
-            <input type="text" id="fullNameDecl" required>
+            <input type="text" id="fullNameDecl" name="fullNameDecl" required>
 
             <label for="dateDecl">Date *</label>
-            <input type="date" id="dateDecl" required>
+            <input type="date" id="dateDecl" name="dateDecl" required>
 
             <div class="button-group">
                 <button type="button" class="prev-btn">Previous</button>

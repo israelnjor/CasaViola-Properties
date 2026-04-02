@@ -1,8 +1,12 @@
+// ==============================
+// MULTI-STEP FORM NAVIGATION
+// ==============================
+
 // Get all form pages
 const formPages = document.querySelectorAll(".form-page");
 let currentPage = 0;
 
-// Show the first page
+// Show first page
 formPages[currentPage].classList.add("active");
 
 // Buttons
@@ -10,53 +14,70 @@ const nextBtns = document.querySelectorAll(".next-btn");
 const prevBtns = document.querySelectorAll(".prev-btn");
 const form = document.getElementById("applicationForm");
 
-// Function to show a page
+// Show specific page
 function showPage(index) {
     formPages.forEach((page, i) => {
         page.classList.remove("active");
-        if(i === index) page.classList.add("active");
+        if (i === index) page.classList.add("active");
     });
-    window.scrollTo(0, 0); // Scroll to top on page change
+    window.scrollTo(0, 0);
 }
 
-// Next button click
+// Next buttons
 nextBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-        // Validate current page inputs before moving forward
-        if(validatePage(currentPage)) {
+        if (validatePage(currentPage)) {
             currentPage++;
-            if(currentPage >= formPages.length) currentPage = formPages.length - 1;
+            if (currentPage >= formPages.length) {
+                currentPage = formPages.length - 1;
+            }
             showPage(currentPage);
         }
     });
 });
 
-// Previous button click
+// Previous buttons
 prevBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         currentPage--;
-        if(currentPage < 0) currentPage = 0;
+        if (currentPage < 0) currentPage = 0;
         showPage(currentPage);
     });
 });
 
-// Page validation function
+// ==============================
+// VALIDATION FUNCTION
+// ==============================
+
 function validatePage(index) {
-    const inputs = formPages[index].querySelectorAll("input[required], select[required], textarea[required]");
-    for(let input of inputs) {
-        if(input.type === "checkbox" && !input.checked) {
-            alert("Please complete all required fields on this page.");
-            return false;
-        } else if(input.value.trim() === "") {
-            alert("Please complete all required fields on this page.");
+    const inputs = formPages[index].querySelectorAll(
+        "input[required], select[required], textarea[required]"
+    );
+
+    for (let input of inputs) {
+        if (input.type === "checkbox") {
+            const name = input.name;
+            const checked = formPages[index].querySelectorAll(
+                `input[name="${name}"]:checked`
+            );
+            if (checked.length === 0) {
+                alert("Please select at least one option.");
+                return false;
+            }
+        } else if (input.value.trim() === "") {
+            alert("Please complete all required fields.");
             input.focus();
             return false;
         }
     }
+
     return true;
 }
 
-// Form submission
+// ==============================
+// FORM SUBMISSION
+// ==============================
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -64,7 +85,7 @@ form.addEventListener("submit", (e) => {
 
     const url = "https://script.google.com/macros/s/AKfycbxN6MxrI9MhK9ivMCmi1F_vjAByFZziQidDwr_5ul0RdPmc3Eqt60pXa0gtGI_wN8fu/exec";
 
-    // ✅ Collect checkboxes (ONLY ONCE, INSIDE submit)
+    // Collect checkbox values
     const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
         .map(el => el.parentElement.innerText.trim())
         .join(", ");
@@ -73,52 +94,55 @@ form.addEventListener("submit", (e) => {
         .map(el => el.parentElement.innerText.trim())
         .join(", ");
 
-    // ✅ Send data
+    // Create FormData
+    const formData = new FormData();
+
+    formData.append("fullName", document.getElementById("fullName").value);
+    formData.append("ghanaCard", document.getElementById("ghanaCard").value);
+    formData.append("phone", document.getElementById("phone").value);
+    formData.append("whatsapp", document.getElementById("whatsapp").value);
+    formData.append("email", document.getElementById("email").value);
+    formData.append("address", document.getElementById("address").value);
+
+    formData.append("education", document.getElementById("education").value);
+    formData.append("institution", document.getElementById("institution").value);
+    formData.append("yearCompleted", document.getElementById("yearCompleted").value);
+    formData.append("certifications", document.getElementById("certifications").value);
+
+    formData.append("currentEmployment", document.getElementById("currentEmployment").value);
+    formData.append("employer", document.getElementById("employer").value);
+    formData.append("position", document.getElementById("position").value);
+    formData.append("duration", document.getElementById("duration").value);
+    formData.append("salesTarget", document.getElementById("salesTarget").value);
+
+    formData.append("previousExperience", document.getElementById("previousExperience").value);
+    formData.append("keyAchievements", document.getElementById("keyAchievements").value);
+
+    formData.append("skills", skills);
+    formData.append("careerLevel", careerLevel);
+
+    formData.append("motivation", document.getElementById("motivation").value);
+    formData.append("salesGoal", document.getElementById("salesGoal").value);
+
+    formData.append("fullNameDecl", document.getElementById("fullNameDecl").value);
+    formData.append("dateDecl", document.getElementById("dateDecl").value);
+
+    // Send data to Google Sheets
     fetch(url, {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json"
-         },
-         body: JSON.stringify({
-            fullName: document.getElementById("fullName").value,
-            ghanaCard: document.getElementById("ghanaCard").value,
-            phone: document.getElementById("phone").value,
-            whatsapp: document.getElementById("whatsapp").value,
-            email: document.getElementById("email").value,
-            address: document.getElementById("address").value,
-            education: document.getElementById("education").value,
-            institution: document.getElementById("institution").value,
-            yearCompleted: document.getElementById("yearCompleted").value,
-            certifications: document.getElementById("certifications").value,
-            currentEmployment: document.getElementById("currentEmployment").value,
-            employer: document.getElementById("employer").value,
-            position: document.getElementById("position").value,
-            duration: document.getElementById("duration").value,
-            salesTarget: document.getElementById("salesTarget").value,
-            previousExperience: document.getElementById("previousExperience").value,
-            keyAchievements: document.getElementById("keyAchievements").value,
-            skills: skills,
-            careerLevel: careerLevel,
-            motivation: document.getElementById("motivation").value,
-            salesGoal: document.getElementById("salesGoal").value,
-            fullNameDecl: document.getElementById("fullNameDecl").value,
-            dateDecl: document.getElementById("dateDecl").value
-         })
-      })
-      .then(response => response.json())
-      .then(data => {
-         if(data.status === "success") {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+    })
+    .then(() => {
+        setTimeout(() => {
             alert("Application submitted successfully!");
             form.reset();
             currentPage = 0;
             showPage(currentPage);
-         } else {
-            alert("Error: " + data.message);
-         }
-      })
-      .catch(err => {
-         console.error(err);
-         alert("Error submitting form");
-      // });
-   });
+        }, 1000);
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Error submitting form");
+    });
 });
