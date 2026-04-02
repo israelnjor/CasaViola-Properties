@@ -151,9 +151,9 @@ form.addEventListener("submit", (e) => {
       formData.append("cvFile", cvFileInput.files[0]);
     }
 
-    const otherFileInput = document.getElementById("otherFile");
-    if (otherFileInput.files.length > 0) {
-      formData.append("otherFiles", otherFileInput.files[0]);
+    const otherFilesInput = document.getElementById("otherFiles");
+    for (let i = 0; i < otherFilesInput.files.length; i++) {
+    formData.append("otherFiles" + i, otherFilesInput.files[i]);
     }
 
 // to here
