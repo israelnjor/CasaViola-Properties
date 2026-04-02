@@ -75,12 +75,11 @@ form.addEventListener("submit", (e) => {
 
     // ✅ Send data
     fetch(url, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
+         method: "POST",
+         headers: {
             "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+         },
+         body: JSON.stringify({
             fullName: document.getElementById("fullName").value,
             ghanaCard: document.getElementById("ghanaCard").value,
             phone: document.getElementById("phone").value,
@@ -104,19 +103,22 @@ form.addEventListener("submit", (e) => {
             salesGoal: document.getElementById("salesGoal").value,
             fullNameDecl: document.getElementById("fullNameDecl").value,
             dateDecl: document.getElementById("dateDecl").value
-        })
-    })
-    .then(() => {
-        // ✅ Success feedback (since no-cors doesn't return response)
-        setTimeout(() => {
+         })
+      })
+      .then(response => response.json())
+      .then(data => {
+         if(data.status === "success") {
             alert("Application submitted successfully!");
             form.reset();
             currentPage = 0;
             showPage(currentPage);
-        }, 1000);
-    })
-    .catch(err => {
-        console.error(err);
-        alert("Error submitting form");
-    });
+         } else {
+            alert("Error: " + data.message);
+         }
+      })
+      .catch(err => {
+         console.error(err);
+         alert("Error submitting form");
+      // });
+   });
 });
