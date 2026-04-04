@@ -110,29 +110,70 @@ form.addEventListener("submit", async (e) => {
 
     try {
 
-        // =========================
-        // GET FILES
-        // =========================
-        const ghanaCardFile = document.getElementById("ghanaCardFile").files[0];
-        const cvFile = document.getElementById("cvFile").files[0];
+    // ==============================
+    // GET FILES
+    // ==============================
+    const ghanaCardFile = document.getElementById("ghanaCardFile").files[0];
+    const cvFile = document.getElementById("cvFile").files[0];
+    const otherFilesInput = document.getElementById("otherFiles").files;
 
-        // =========================
-        // UPLOAD GHANA CARD
-        // =========================
-        const ghanaCardRef = ref(storage, "ghanaCards/" + Date.now() + "_" + ghanaCardFile.name);
-        await uploadBytes(ghanaCardRef, ghanaCardFile);
-        const ghanaCardURL = await getDownloadURL(ghanaCardRef);
+    if (!ghanaCardFile || !cvFile) {
+        alert("Please upload required files.");
+        return;
+    }
 
-        // =========================
-        // UPLOAD CV
-        // =========================
-        const cvRef = ref(storage, "cvs/" + Date.now() + "_" + cvFile.name);
-        await uploadBytes(cvRef, cvFile);
-        const cvURL = await getDownloadURL(cvRef);
+    // ==============================
+    // CREATE STORAGE REFERENCES
+    // ==============================
+    const ghanaCardRef = ref(
+        storage,
+        "ghanaCards/" + Date.now() + "_" + ghanaCardFile.name
+    );
 
-        // =========================
-        // CHECKBOX VALUES
-        // =========================
+    const cvRef = ref(
+        storage,
+        "cvs/" + Date.now() + "_" + cvFile.name
+    );
+
+    // ==============================
+    // UPLOAD MAIN FILES
+    // ==============================
+    await uploadBytes(ghanaCardRef, ghanaCardFile);
+    await uploadBytes(cvRef, cvFile);
+
+    // ==============================
+    // GET DOWNLOAD URLS
+    // ==============================
+    const ghanaCardURL = await getDownloadURL(ghanaCardRef);
+    const cvURL = await getDownloadURL(cvRef);
+
+    // ==============================
+    // HANDLE MULTIPLE "OTHER FILES"
+    // ==============================
+    let otherFilesURLs = [];
+
+    for (let i = 0; i < otherFilesInput.length; i++) {
+        const file = otherFilesInput[i];
+
+        const fileRef = ref(
+            storage,
+            "otherFiles/" +
+            Date.now() +
+            "_" +
+            Math.random().toString(36).substring(2) +
+            "_" +
+            file.name
+        );
+
+        await uploadBytes(fileRef, file);
+
+        const fileURL = await getDownloadURL(fileRef);
+
+        otherFilesURLs.push(fileURL);
+    }
+        // ==============================
+        // COLLECT FORM DATA
+        // ==============================
         const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
             .map(el => el.parentElement.innerText.trim())
             .join(", ");
@@ -141,9 +182,9 @@ form.addEventListener("submit", async (e) => {
             .map(el => el.parentElement.innerText.trim())
             .join(", ");
 
-        // =========================
+        // ==============================
         // SAVE TO FIRESTORE
-        // =========================
+        // ==============================
         await addDoc(collection(db, "applications"), {
             fullName: document.getElementById("fullName").value,
             ghanaCard: document.getElementById("ghanaCard").value,
@@ -175,16 +216,17 @@ form.addEventListener("submit", async (e) => {
             fullNameDecl: document.getElementById("fullNameDecl").value,
             dateDecl: document.getElementById("dateDecl").value,
 
-            // 🔥 FILE LINKS
-            ghanaCardFileURL: ghanaCardURL,
-            cvFileURL: cvURL,
+            // 🔥 FILE URLs
+            ghanaCardURL: ghanaCardURL,
+            cvURL: cvURL,
+            otherFiles: otherFilesURLs,
 
             createdAt: new Date()
         });
 
-        // =========================
+        // ==============================
         // SUCCESS
-        // =========================
+        // ==============================
         alert("Application submitted successfully!");
 
         form.reset();
@@ -193,11 +235,9 @@ form.addEventListener("submit", async (e) => {
 
     } catch (error) {
         console.error(error);
-        alert("Error submitting application");
+        alert("Upload failed. Check console.");
     }
 });
-
-
 // form.addEventListener("submit", (e) => {
 //     e.preventDefault();
 
