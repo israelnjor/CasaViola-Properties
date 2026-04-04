@@ -5,12 +5,12 @@ import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
- apiKey: "AIzaSyDm2nMS4EVVbp_0gzQOVr7ph1ckM6mF24w",
+  apiKey: "AIzaSy...",
   authDomain: "casaviola-final.firebaseapp.com",
   projectId: "casaviola-final",
-  storageBucket: "casaviola-final.appspot.com",
+  storageBucket: "casaviola-final-1b458.firebasestorage.app", // ✅ FIXED
   messagingSenderId: "1047113639506",
-  appId: "1:1047113639506:web:6d2ab4470a53f2ff30e18b"
+  appId: "1:1047113639506:web:..."
 };
 const app = initializeApp(firebaseConfig);
 
