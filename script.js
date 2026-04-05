@@ -109,71 +109,63 @@ form.addEventListener("submit", async (e) => {
     if (!validatePage(currentPage)) return;
 
     try {
+        console.log("🚀 Starting form submission...");
 
-    // ==============================
-    // GET FILES
-    // ==============================
-    const ghanaCardFile = document.getElementById("ghanaCardFile").files[0];
-    const cvFile = document.getElementById("cvFile").files[0];
-    const otherFilesInput = document.getElementById("otherFiles").files;
-
-    if (!ghanaCardFile || !cvFile) {
-        alert("Please upload required files.");
-        return;
-    }
-
-    // ==============================
-    // CREATE STORAGE REFERENCES
-    // ==============================
-    const ghanaCardRef = ref(
-        storage,
-        "ghanaCards/" + Date.now() + "_" + ghanaCardFile.name
-    );
-
-    const cvRef = ref(
-        storage,
-        "cvs/" + Date.now() + "_" + cvFile.name
-    );
-
-    // ==============================
-    // UPLOAD MAIN FILES
-    // ==============================
-    await uploadBytes(ghanaCardRef, ghanaCardFile);
-    await uploadBytes(cvRef, cvFile);
-
-    // ==============================
-    // GET DOWNLOAD URLS
-    // ==============================
-    const ghanaCardURL = await getDownloadURL(ghanaCardRef);
-    const cvURL = await getDownloadURL(cvRef);
-
-    // ==============================
-    // HANDLE MULTIPLE "OTHER FILES"
-    // ==============================
-    let otherFilesURLs = [];
-
-    for (let i = 0; i < otherFilesInput.length; i++) {
-        const file = otherFilesInput[i];
-
-        const fileRef = ref(
-            storage,
-            "otherFiles/" +
-            Date.now() +
-            "_" +
-            Math.random().toString(36).substring(2) +
-            "_" +
-            file.name
-        );
-
-        await uploadBytes(fileRef, file);
-
-        const fileURL = await getDownloadURL(fileRef);
-
-        otherFilesURLs.push(fileURL);
-    }
         // ==============================
-        // COLLECT FORM DATA
+        // GET FILES
         // ==============================
+        const ghanaCardFile = document.getElementById("ghanaCardFile")?.files[0];
+        const cvFile = document.getElementById("cvFile")?.files[0];
+        const otherFilesInput = document.getElementById("otherFiles")?.files;
+
+        if (!ghanaCardFile || !cvFile) {
+            alert("Please upload required files.");
+            return;
+        }
+
+        // ==============================
+        // UPLOAD MAIN FILES
+        // ==============================
+        console.log("📤 Uploading main files...");
+
+        const ghanaCardRef = ref(storage, "ghanaCards/" + Date.now() + "_" + ghanaCardFile.name);
+        const cvRef = ref(storage, "cvs/" + Date.now() + "_" + cvFile.name);
+
+        await uploadBytes(ghanaCardRef, ghanaCardFile);
+        await uploadBytes(cvRef, cvFile);
+
+        const ghanaCardURL = await getDownloadURL(ghanaCardRef);
+        const cvURL = await getDownloadURL(cvRef);
+
+        console.log("✅ Main files uploaded");
+
+        // ==============================
+        // OPTIONAL FILES
+        // ==============================
+        let otherFilesURLs = [];
+
+        if (otherFilesInput && otherFilesInput.length > 0) {
+            console.log("📎 Uploading other files...");
+
+            for (let file of otherFilesInput) {
+                const fileRef = ref(
+                    storage,
+                    "otherFiles/" + Date.now() + "_" + file.name
+                );
+
+                await uploadBytes(fileRef, file);
+                const fileURL = await getDownloadURL(fileRef);
+                otherFilesURLs.push(fileURL);
+            }
+
+            console.log("✅ Other files uploaded");
+        }
+
+        // ==============================
+        // COLLECT DATA
+        // ==============================
+        console.log("🧠 Preparing data...");
+
         const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
             .map(el => el.parentElement.innerText.trim())
             .join(", ");
@@ -182,12 +174,8 @@ form.addEventListener("submit", async (e) => {
             .map(el => el.parentElement.innerText.trim())
             .join(", ");
 
-        // ==============================
-        // SAVE TO FIRESTORE
-        // ==============================
-        await addDoc(collection(db, "applications"), {
+        const data = {
             fullName: document.getElementById("fullName").value,
-            ghanaCard: document.getElementById("ghanaCard").value,
             phone: document.getElementById("phone").value,
             whatsapp: document.getElementById("whatsapp").value,
             email: document.getElementById("email").value,
@@ -216,13 +204,21 @@ form.addEventListener("submit", async (e) => {
             fullNameDecl: document.getElementById("fullNameDecl").value,
             dateDecl: document.getElementById("dateDecl").value,
 
-            // 🔥 FILE URLs
-            ghanaCardURL: ghanaCardURL,
-            cvURL: cvURL,
+            ghanaCardURL,
+            cvURL,
             otherFiles: otherFilesURLs,
 
             createdAt: new Date()
-        });
+        };
+
+        console.log("🔥 Sending to Firestore...", data);
+
+        // ==============================
+        // SAVE TO FIRESTORE
+        // ==============================
+        await addDoc(collection(db, "applications"), data);
+
+        console.log("✅ Saved to Firestore");
 
         // ==============================
         // SUCCESS
@@ -234,8 +230,8 @@ form.addEventListener("submit", async (e) => {
         showPage(currentPage);
 
     } catch (error) {
-        console.error(error);
-        alert("Upload failed. Check console.");
+        console.error("❌ FULL ERROR:", error);
+        alert("Error: " + error.message);
     }
 });
 // form.addEventListener("submit", (e) => {
