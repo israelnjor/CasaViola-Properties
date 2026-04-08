@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <style>
+      body {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         height: 100vh;
+         background: white;
+         color: #333;
+         font-family: Arial, sans-serif;
+      }
+   
+      h2 {
+         margin-bottom: 20px;
+      }
+   
+      input {
+         padding: 10px;
+         margin: 10px 0;
+         width: 250px;
+         border-radius: 5px;
+         border: solid 1px #5b5959;
+      }
+   
+      button {
+         padding: 10px 20px;
+         background-color: #D4A017;
+         color: white;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+      }
+   
+      button:hover {
+         background-color: #b38600;
+      }
+  </style>
+</head>
+<body>
+
+<h2>Admin Login</h2>
+<label style="display: block; margin-left: 2px; padding-left: 2px;">Email:</label>
+<input type="email" id="email" placeholder="Email"><br><br>
+<label style="display: block; margin-left: 2px; padding-left: 2px;">Password:</label>
+<input type="password" id="password" placeholder="Password"><br><br>
+<button onclick="login()">Login</button>
+
+<script type="module">
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+window.login = async function() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+      //   alert("Login successful!");
+        window.location.href = "admin.html";
+    } catch (error) {
+        alert(error.message);
+    }
+};
+</script>
+
+</body>
+</html>

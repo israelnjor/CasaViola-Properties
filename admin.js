@@ -1,3 +1,22 @@
+// IMPORT AUTH
+import { auth } from "./firebase.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+// 🔐 PROTECT PAGE
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        alert("Access denied. Please login.");
+        window.location.href = "login.html";
+    } else {
+        console.log("Admin logged in:", user.email);
+        loadApplications(); // only run AFTER auth
+    }
+});
+// END PROTECT PAGE
+
 import { db } from "./firebase.js";
 
 import {
@@ -25,6 +44,8 @@ async function loadApplications() {
             card.style.border = "1px solid #ccc";
             card.style.padding = "15px";
             card.style.marginBottom = "10px";
+            card.classList.add("card"); //  THIS
+
 
             card.innerHTML = `
                 <h3>${data.fullName}</h3>

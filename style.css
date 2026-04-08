@@ -1,4 +1,6 @@
+/* ============================= */
 /* GENERAL STYLING */
+/* ============================= */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -16,74 +18,72 @@ logo {
 }
 
 body {
-    background-color: #fbfbfb;
+    background: linear-gradient(135deg, #1a0120, #3b0b27);
     color: #333;
 }
 
+/* ============================= */
 /* HEADER */
+/* ============================= */
 header {
-    position: relative; /* important for overlay containment */
+    position: relative;
     background: url('header.png') no-repeat center center;
     background-size: cover;
-    color: #ffd700;
     text-align: center;
-    padding: 40px 20px;
-    /* border-bottom-left-radius: 0px; */
-    border-bottom-right-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    overflow: hidden; /* ensures overlay stays inside */
+    padding: 50px 20px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
 }
 
-/* Overlay only inside header */
+/* Purple overlay */
 header::before {
     content: '';
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.3); /* dark overlay for contrast */
+    background: rgba(43, 10, 61, 0.568);
     z-index: 0;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
 }
 
 header img,
 header h1,
 header p {
     position: relative;
-    z-index: 1; /* text and logo above overlay */
+    z-index: 1;
 }
 
-/* header img {
-    max-width: 120px;
-    margin-bottom: 15px; */
-/* } */
-
 header h1 {
-    font-size: 2.2rem;
-    margin-bottom: 5px;
-    font-weight: bold;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
 }
 
 header p {
     font-size: 1.1rem;
-    color: #fff;
-    font-weight: bold;
+    color: #FFD700;
+    font-weight: 600;
 }
 
+/* ============================= */
 /* FORM CONTAINER */
+/* ============================= */
 .container {
     max-width: 800px;
-    margin: 30px auto 60px;
-    margin-bottom: 0px;
-    background-color: #fff;
+    margin: 40px auto 60px;
+    background-color: #ffffff;
+    color: #222;
     padding: 40px 30px;
-    border-radius: 5px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    border-top: 5px solid #FFD700;
 }
 
+/* ============================= */
 /* FORM PAGES */
+/* ============================= */
 .form-page {
-    display: none; /* Hidden by default */
+    display: none;
     animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -91,11 +91,14 @@ header p {
     display: block;
 }
 
+/* ============================= */
 /* LABELS & INPUTS */
+/* ============================= */
 label {
     display: block;
     margin-top: 15px;
     font-weight: 600;
+    color: #333;
 }
 
 input[type="text"],
@@ -108,17 +111,19 @@ input[type="file"] {
     width: 100%;
     padding: 12px 15px;
     margin-top: 5px;
-    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border: 2px solid #e0e0e0;
     border-radius: 8px;
     font-size: 1rem;
-    transition: border 0.3s;
+    transition: all 0.3s ease;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: #6a5acd;
+    border-color: #5A2A7A;
+    box-shadow: 0 0 0 2px rgba(90, 42, 122, 0.2);
 }
 
 /* TEXTAREA */
@@ -126,33 +131,32 @@ textarea {
     resize: vertical;
 }
 
+/* ============================= */
 /* HEADINGS */
+/* ============================= */
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 15px;
-    border-bottom: 2px solid #b9a43b;
-    padding-bottom: 5px;
-    font-weight: bold;
-
-    /* Fallback color (VERY IMPORTANT) */
-    color: #99700f;
-
-    /* Gradient */
-    background: linear-gradient(to right, #99700f, #ffd700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid #FFD700;
+    padding-bottom: 6px;
+    font-weight: 800;
+    color: #2B0A3D;
 }
 
-
+/* ============================= */
 /* CHECKBOX GROUP */
+/* ============================= */
 .checkbox-group label {
     display: inline-block;
     margin-right: 15px;
     margin-top: 10px;
     font-weight: 500;
+    color: #444;
 }
 
+/* ============================= */
 /* BUTTONS */
+/* ============================= */
 .button-group {
     margin-top: 25px;
     text-align: right;
@@ -160,20 +164,20 @@ h2 {
 
 button {
     padding: 12px 25px;
-    background-color: #ffd700;
-    color: #333;
+    background: linear-gradient(135deg, #FFD700, #b89600);
+    color: #2B0A3D;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-left: 10px;
 }
 
 button:hover {
-    background-color: #e6c200;
-    color: #222;
+    background: linear-gradient(135deg, #e6c200, #a67c00);
+    transform: translateY(-1px);
 }
 
 button:disabled {
@@ -181,12 +185,12 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* ============================= */
 /* RESPONSIVE */
+/* ============================= */
 @media (max-width: 600px) {
     .container {
         padding: 30px 20px;
-        padding-bottom: 0px;
-        margin-bottom: 0px;
     }
 
     button {
@@ -199,34 +203,34 @@ button:disabled {
     }
 }
 
+/* ============================= */
 /* ANIMATION */
+/* ============================= */
 @keyframes fadeIn {
     from {opacity: 0; transform: translateY(20px);}
     to {opacity: 1; transform: translateY(0);}
 }
 
+/* ============================= */
+/* FOOTER */
+/* ============================= */
 footer {
-    background-color: #f7acec; /* soft purple matching header */
-    color: #f7f6f3; /* gold text */
+    background: #2B0A3D;
+    color: #FFD700;
     text-align: center;
-    padding: 5px 5px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    margin-top: 0px;
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+    padding: 10px;
+    margin-top: 0;
     font-size: 0.9rem;
 }
 
 footer a {
-    color: #8f875a;
+    color: #FFD700;
     text-decoration: none;
     font-weight: 600;
-    margin: 0 5px;
-    transition: color 0.3s;
 }
 
 footer a:hover {
-    color: #fff; /* subtle hover effect */
+    color: #ffffff;
 }
 
 .footer-container p {

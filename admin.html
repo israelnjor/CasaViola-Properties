@@ -5,10 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Admin Dashboard</title>
+
+  <style>
+    :root {
+      --primary: #2B0A3D;
+      --secondary: #5a2a7a84;
+      --accent: #D4A017;
+      --light: #FFFFFF;
+      --dark: #1A1A1A;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--primary);
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    /* CONTAINER */
+    #applicationsContainer {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* CARD */
+    .card {
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .card p {
+      margin: 6px 0;
+    }
+
+    /* LINKS (FILES) */
+    .links a {
+      text-decoration: none;
+      margin-right: 10px;
+      padding: 8px 12px;
+      background: var(--accent);
+      color: var(--primary);
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .links a:hover {
+      background: #b8860b;
+    }
+
+  </style>
+
 </head>
 <body>
 
-  <h1>📋 Applications Dashboard</h1>
+  <header>
+    📋 Casa Viola Applications Dashboard
+  </header>
 
   <div id="applicationsContainer"></div>
 
