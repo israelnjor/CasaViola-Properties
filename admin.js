@@ -58,6 +58,7 @@ async function loadApplications() {
                   <a href="${data.cvURL}" target="_blank">📄 View CV</a> |
                   <a href="${data.ghanaCardURL}" target="_blank">🪪 Ghana Card</a>
                 </p>
+                <p><em>Applied on: ${new Date(data.createdAt.seconds * 1000).toLocaleString()}</em></p>
             `;
 
             container.appendChild(card);
