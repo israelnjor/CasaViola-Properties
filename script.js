@@ -109,7 +109,7 @@ form.addEventListener("submit", async (e) => {
     if (!validatePage(currentPage)) return;
 
     try {
-        console.log("🚀 Starting form submission...");
+        // console.log("🚀 Starting form submission...");AAAAAAAAAAAAA
 
         // ==============================
         // GET FILES
@@ -126,7 +126,8 @@ form.addEventListener("submit", async (e) => {
         // ==============================
         // UPLOAD MAIN FILES
         // ==============================
-        console.log("📤 Uploading main files...");
+        // console.log("📤 Uploading main files...");AAAAAAAAAAAAA
+        alert("Submitting your application. Please wait...");
 
         const ghanaCardRef = ref(storage, "ghanaCards/" + Date.now() + "_" + ghanaCardFile.name);
         const cvRef = ref(storage, "cvs/" + Date.now() + "_" + cvFile.name);
@@ -137,7 +138,7 @@ form.addEventListener("submit", async (e) => {
         const ghanaCardURL = await getDownloadURL(ghanaCardRef);
         const cvURL = await getDownloadURL(cvRef);
 
-        console.log("✅ Main files uploaded");
+        // console.log("✅ Main files uploaded");AAAAAAAAAAAA
 
         // ==============================
         // OPTIONAL FILES
@@ -158,13 +159,13 @@ form.addEventListener("submit", async (e) => {
                 otherFilesURLs.push(fileURL);
             }
 
-            console.log("✅ Other files uploaded");
+            // console.log("✅ Other files uploaded");AAAAAAAAAAAAAA
         }
 
         // ==============================
         // COLLECT DATA
         // ==============================
-        console.log("🧠 Preparing data...");
+        // console.log("🧠 Preparing data...");AAAAAAAAAAAA
 
         const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
             .map(el => el.parentElement.innerText.trim())
@@ -211,19 +212,19 @@ form.addEventListener("submit", async (e) => {
             createdAt: new Date()
         };
 
-        console.log("🔥 Sending to Firestore...", data);
+        // console.log("🔥 Sending to Firestore...", data);AAAAAAAAAAAA
 
         // ==============================
         // SAVE TO FIRESTORE
         // ==============================
         await addDoc(collection(db, "applications"), data);
 
-        console.log("✅ Saved to Firestore");
+        // console.log("✅ Saved to Firestore");AAAAAA
 
         // ==============================
         // SUCCESS
         // ==============================
-        alert("Application submitted successfully!");
+        alert("Application submitted successfully!\n\nThank you for applying. We will review your application and get back to you soon.");
 
         form.reset();
         currentPage = 0;
