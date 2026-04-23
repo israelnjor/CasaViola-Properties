@@ -58,9 +58,7 @@ prevBtns.forEach(btn => {
     });
 });
 
-// ==============================
 // VALIDATION FUNCTION
-// ==============================
 
 function validatePage(index) {
     const page = formPages[index];
@@ -99,9 +97,7 @@ function validatePage(index) {
     return true;
 }
 
-// ==============================
 // FORM SUBMISSION
-// ==============================
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -109,11 +105,8 @@ form.addEventListener("submit", async (e) => {
     if (!validatePage(currentPage)) return;
 
     try {
-        // console.log("🚀 Starting form submission...");AAAAAAAAAAAAA
 
-        // ==============================
         // GET FILES
-        // ==============================
         const ghanaCardFile = document.getElementById("ghanaCardFile")?.files[0];
         const cvFile = document.getElementById("cvFile")?.files[0];
         const otherFilesInput = document.getElementById("otherFiles")?.files;
@@ -124,9 +117,6 @@ form.addEventListener("submit", async (e) => {
         }
 
         // ==============================
-        // UPLOAD MAIN FILES
-        // ==============================
-        // console.log("📤 Uploading main files...");AAAAAAAAAAAAA
         alert("Submitting your application. Please wait...");
 
         const ghanaCardRef = ref(storage, "ghanaCards/" + Date.now() + "_" + ghanaCardFile.name);
@@ -138,11 +128,8 @@ form.addEventListener("submit", async (e) => {
         const ghanaCardURL = await getDownloadURL(ghanaCardRef);
         const cvURL = await getDownloadURL(cvRef);
 
-        // console.log("✅ Main files uploaded");AAAAAAAAAAAA
 
-        // ==============================
         // OPTIONAL FILES
-        // ==============================
         let otherFilesURLs = [];
 
         if (otherFilesInput && otherFilesInput.length > 0) {
@@ -159,13 +146,8 @@ form.addEventListener("submit", async (e) => {
                 otherFilesURLs.push(fileURL);
             }
 
-            // console.log("✅ Other files uploaded");AAAAAAAAAAAAAA
         }
-
-        // ==============================
         // COLLECT DATA
-        // ==============================
-        // console.log("🧠 Preparing data...");AAAAAAAAAAAA
 
         const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
             .map(el => el.parentElement.innerText.trim())
@@ -212,18 +194,11 @@ form.addEventListener("submit", async (e) => {
             createdAt: new Date()
         };
 
-        // console.log("🔥 Sending to Firestore...", data);AAAAAAAAAAAA
-
-        // ==============================
         // SAVE TO FIRESTORE
-        // ==============================
         await addDoc(collection(db, "applications"), data);
 
-        // console.log("✅ Saved to Firestore");AAAAAA
 
-        // ==============================
         // SUCCESS
-        // ==============================
         alert("Application submitted successfully!\n\nThank you for applying. We will review your application and get back to you soon.");
 
         form.reset();
@@ -235,89 +210,3 @@ form.addEventListener("submit", async (e) => {
         alert("Error: " + error.message);
     }
 });
-// form.addEventListener("submit", (e) => {
-//     e.preventDefault();
-
-//     if (!validatePage(currentPage)) return;
-
-//     const url = "https://script.google.com/macros/s/AKfycbwf0iUfJ8sgRie4jFrH-3WlfGhOeoJ7MBEnmGXOOf7pNJsPPkT5foue6o7xBEIR4pi3/exec";
-
-//     // Collect checkbox values
-//     const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
-//         .map(el => el.parentElement.innerText.trim())
-//         .join(", ");
-
-//     const careerLevel = Array.from(document.querySelectorAll('input[name="careerLevel"]:checked'))
-//         .map(el => el.parentElement.innerText.trim())
-//         .join(", ");
-
-//     // Create FormData
-//     const formData = new FormData();
-
-//     formData.append("fullName", document.getElementById("fullName").value);
-//     formData.append("ghanaCard", document.getElementById("ghanaCard").value);
-//     formData.append("phone", document.getElementById("phone").value);
-//     formData.append("whatsapp", document.getElementById("whatsapp").value);
-//     formData.append("email", document.getElementById("email").value);
-//     formData.append("address", document.getElementById("address").value);
-
-//     formData.append("education", document.getElementById("education").value);
-//     formData.append("institution", document.getElementById("institution").value);
-//     formData.append("yearCompleted", document.getElementById("yearCompleted").value);
-//     formData.append("certifications", document.getElementById("certifications").value);
-
-//     formData.append("currentEmployment", document.getElementById("currentEmployment").value);
-//     formData.append("employer", document.getElementById("employer").value);
-//     formData.append("position", document.getElementById("position").value);
-//     formData.append("duration", document.getElementById("duration").value);
-//     formData.append("salesTarget", document.getElementById("salesTarget").value);
-
-//     formData.append("previousExperience", document.getElementById("previousExperience").value);
-//     formData.append("keyAchievements", document.getElementById("keyAchievements").value);
-
-//     formData.append("skills", skills);
-//     formData.append("careerLevel", careerLevel);
-
-//     formData.append("motivation", document.getElementById("motivation").value);
-//     formData.append("salesGoal", document.getElementById("salesGoal").value);
-
-//     formData.append("fullNameDecl", document.getElementById("fullNameDecl").value);
-//     formData.append("dateDecl", document.getElementById("dateDecl").value);
-
-
-//    //  from here
-//     const ghanaCardFileInput = document.getElementById("ghanaCardFile");
-//     if (ghanaCardFileInput.files.length > 0) {
-//        formData.append("ghanaCardFile", ghanaCardFileInput.files[0]);
-//     }
-
-//     const cvFileInput = document.getElementById("cvFile");
-//     if (cvFileInput.files.length > 0) {
-//       formData.append("cvFile", cvFileInput.files[0]);
-//     }
-
-//     const otherFilesInput = document.getElementById("otherFiles");
-//     for (let i = 0; i < otherFilesInput.files.length; i++) {
-//     formData.append("otherFiles" + i, otherFilesInput.files[i]);
-//     }
-
-// // to here
-//     // Send data to Google Sheets
-//     fetch(url, {
-//         method: "POST",
-//       //   mode: "no-cors",
-//         body: formData
-//     })
-//     .then(() => {
-//         setTimeout(() => {
-//             alert("Application submitted successfully!");
-//             form.reset();
-//             currentPage = 0;
-//             showPage(currentPage);
-//         }, 1000);
-//     })
-//     .catch(err => {
-//         console.error(err);
-//         alert("Error submitting form");
-//     });
-// });
