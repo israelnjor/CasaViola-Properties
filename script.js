@@ -74,6 +74,15 @@ function validatePage(index) {
             input.focus();
             return false;
         }
+        // Validate email format
+        if (input.type === "email") {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(input.value)) {
+                alert("Please enter a valid email address.");
+                input.focus();
+                return false;
+            }
+        }
     }
 
     // ✅ Handle SKILLS (page 4)
