@@ -1,56 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Admin Dashboard</title>
+  <title>Casa Viola Admin Dashboard</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 
   <style>
     :root {
       --primary: #2B0A3D;
-      --secondary: #5a2a7a84;
+      --secondary: #5A2A7A;
       --accent: #D4A017;
-      --light: #FFFFFF;
+      --gold-dark: #9A6B00;
+      --light: #ffffff;
+      --soft: #f7f3fb;
       --dark: #1A1A1A;
+      --muted: #6b6b6b;
+      --success: #198754;
+      --danger: #dc3545;
+      --warning: #d4a017;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
+      color: var(--light);
+      min-height: 100vh;
     }
 
-    /* HEADER */
-    header {
-      background: var(--primary);
-      padding: 20px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      border-bottom: 3px solid var(--accent);
+    .topbar {
+      padding: 22px 6%;
+      background: rgba(43, 10, 61, 0.96);
+      border-bottom: 4px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    /* CONTAINER */
+    .brand h1 {
+      margin: 0;
+      font-size: 1.7rem;
+      letter-spacing: 0.5px;
+    }
+
+    .brand p {
+      margin: 6px 0 0;
+      color: #ead9ff;
+      font-size: 0.95rem;
+    }
+
+    .logout-btn {
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .dashboard {
+      width: min(1150px, 92%);
+      margin: 35px auto;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.96);
+      color: var(--primary);
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+      border-left: 5px solid var(--accent);
+    }
+
+    .stat-card h3 {
+      margin: 0;
+      font-size: 1.7rem;
+    }
+
+    .stat-card p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .controls {
+      background: rgba(255,255,255,0.96);
+      padding: 18px;
+      border-radius: 16px;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 22px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+      font-size: 0.95rem;
+    }
+
+    .controls input:focus,
+    .controls select:focus {
+      border-color: var(--accent);
+    }
+
     #applicationsContainer {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
-    /* CARD */
     .card {
-      background: white;
-      color: black;
+      background: var(--light);
+      color: var(--dark);
       padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease;
+      border-radius: 18px;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: 0.25s ease;
+      border-top: 5px solid var(--accent);
     }
 
     .card:hover {
@@ -58,40 +147,252 @@
     }
 
     .card h3 {
-      margin-top: 0;
+      margin: 0 0 8px;
       color: var(--primary);
+      font-size: 1.2rem;
     }
 
     .card p {
       margin: 6px 0;
+      color: #444;
     }
 
-    /* LINKS (FILES) */
-    .links a {
-      text-decoration: none;
-      margin-right: 10px;
-      padding: 8px 12px;
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .pending {
+      background: #fff3cd;
+      color: #8a6500;
+    }
+
+    .approved {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .rejected {
+      background: #f8d7da;
+      color: #842029;
+    }
+
+    .date {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      background: rgba(255,255,255,0.96);
+      color: var(--primary);
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 999;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      color: var(--dark);
+      width: min(850px, 96%);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+      animation: pop 0.25s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 15px;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h2 {
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .close-btn {
+      background: #eee;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .detail-box {
+      background: var(--soft);
+      padding: 14px;
+      border-radius: 12px;
+    }
+
+    .detail-box strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 5px;
+      font-size: 0.85rem;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .file-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .file-links a {
       background: var(--accent);
       color: var(--primary);
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
     }
 
-    .links a:hover {
-      background: #b8860b;
+    .action-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
     }
 
+    .approve-btn,
+    .reject-btn {
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .approve-btn {
+      background: var(--success);
+    }
+
+    .reject-btn {
+      background: var(--danger);
+    }
+
+    @media (max-width: 800px) {
+      .stats,
+      #applicationsContainer,
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .topbar {
+        text-align: center;
+        justify-content: center;
+      }
+    }
   </style>
-
 </head>
-<body>
 
-  <header>
-    📋 Casa Viola Applications Dashboard
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Casa Viola Applications Dashboard</h1>
+      <p>Review, filter and manage submitted applications</p>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn">Logout</button>
   </header>
 
-  <div id="applicationsContainer"></div>
+  <main class="dashboard">
+    <section class="stats">
+      <div class="stat-card">
+        <h3 id="totalCount">0</h3>
+        <p>Total Applications</p>
+      </div>
+
+      <div class="stat-card">
+        <h3 id="pendingCount">0</h3>
+        <p>Pending</p>
+      </div>
+
+      <div class="stat-card">
+        <h3 id="approvedCount">0</h3>
+        <p>Approved</p>
+      </div>
+
+      <div class="stat-card">
+        <h3 id="rejectedCount">0</h3>
+        <p>Rejected</p>
+      </div>
+    </section>
+
+    <section class="controls">
+      <input type="text" id="searchInput" placeholder="Search by name, email, phone or qualification..." />
+
+      <select id="filterStatus">
+        <option value="all">All Applications</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </section>
+
+    <section id="applicationsContainer"></section>
+  </main>
+
+  <div id="detailsModal" class="modal">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
 
   <script type="module" src="admin.js"></script>
 </body>
