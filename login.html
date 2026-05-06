@@ -1,74 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Casa Viola Admin Login</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
   <style>
-      body {
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-         justify-content: center;
-         height: 100vh;
-         background: white;
-         color: #333;
-         font-family: Arial, sans-serif;
+    :root {
+      --primary: #2B0A3D;
+      --secondary: #5A2A7A;
+      --accent: #D4A017;
+      --light: #ffffff;
+      --dark: #1A1A1A;
+      --muted: #6f6f6f;
+      --danger: #dc3545;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(212, 160, 23, 0.22), transparent 32%),
+        linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: var(--dark);
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 22px;
+      padding: 34px 30px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+      border-top: 6px solid var(--accent);
+      animation: popIn 0.35s ease;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
       }
-   
-      h2 {
-         margin-bottom: 20px;
+      to {
+        transform: translateY(0);
+        opacity: 1;
       }
-   
-      input {
-         padding: 10px;
-         margin: 10px 0;
-         width: 250px;
-         border-radius: 5px;
-         border: solid 1px #5b5959;
-      }
-   
-      button {
-         padding: 10px 20px;
-         background-color: #D4A017;
-         color: white;
-         border: none;
-         border-radius: 5px;
-         cursor: pointer;
-      }
-   
-      button:hover {
-         background-color: #b38600;
-      }
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand-badge {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      background: var(--primary);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(43,10,61,0.25);
+    }
+
+    .brand h2 {
+      margin: 0;
+      color: var(--primary);
+      font-size: 1.65rem;
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 11px;
+      border: 1px solid #d8d8d8;
+      outline: none;
+      font-size: 0.96rem;
+      background: #fff;
+      transition: 0.25s ease;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(212,160,23,0.16);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: var(--primary);
+      cursor: pointer;
+      font-weight: 700;
+      padding: 5px;
+      font-size: 0.8rem;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 1rem;
+      transition: 0.25s ease;
+    }
+
+    .login-btn:hover {
+      background: #b8860b;
+      transform: translateY(-1px);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .error-box {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      background: #f8d7da;
+      color: #842029;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .security-note {
+      margin-top: 20px;
+      padding: 13px;
+      border-radius: 12px;
+      background: #f7f3fb;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .footer-text {
+      margin-top: 18px;
+      text-align: center;
+      color: #ead9ff;
+      font-size: 0.85rem;
+    }
   </style>
 </head>
+
 <body>
+  <main>
+    <section class="login-card">
+      <div class="brand">
+        <div class="brand-badge">CV</div>
+        <h2>Admin Login</h2>
+        <p>Secure access to Casa Viola application records.</p>
+      </div>
 
-<h2>Admin Login</h2>
-<label style="display: block; margin-left: 2px; padding-left: 2px;">Email:</label>
-<input type="email" id="email" placeholder="Email"><br><br>
-<label style="display: block; margin-left: 2px; padding-left: 2px;">Password:</label>
-<input type="password" id="password" placeholder="Password"><br><br>
-<button onclick="login()">Login</button>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter admin email" required />
+        </div>
 
-<script type="module">
-import { auth } from "./firebase.js";
-import { signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        <div class="form-group">
+          <label for="password">Password</label>
 
-window.login = async function() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+          <div class="password-wrap">
+            <input type="password" id="password" placeholder="Enter password" required />
+            <button type="button" class="toggle-password" id="togglePassword">Show</button>
+          </div>
+        </div>
 
-    try {
-        await signInWithEmailAndPassword(auth, email, password);
-      //   alert("Login successful!");
+        <button type="submit" class="login-btn" id="loginBtn">Login</button>
+
+        <div class="error-box" id="errorBox"></div>
+      </form>
+
+      <div class="security-note">
+        For security, admin sessions should be logged out after 10 minutes of inactivity.
+      </div>
+    </section>
+
+    <p class="footer-text">&copy; 2026 Casa Viola Properties</p>
+  </main>
+
+  <script type="module">
+    import { auth } from "./firebase.js";
+
+    import {
+      signInWithEmailAndPassword,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const loginForm = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const loginBtn = document.getElementById("loginBtn");
+    const errorBox = document.getElementById("errorBox");
+    const togglePassword = document.getElementById("togglePassword");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
         window.location.href = "admin.html";
-    } catch (error) {
-        alert(error.message);
-    }
-};
-</script>
+      }
+    });
 
+    togglePassword.addEventListener("click", () => {
+      const isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
+      togglePassword.textContent = isPassword ? "Hide" : "Show";
+    });
+
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      if (!email || !password) {
+        showError("Please enter both email and password.");
+        return;
+      }
+
+      try {
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Signing in...";
+        errorBox.style.display = "none";
+
+        await signInWithEmailAndPassword(auth, email, password);
+
+        window.location.href = "admin.html";
+
+      } catch (error) {
+        showError(cleanAuthError(error.code));
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Login";
+      }
+    });
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+    }
+
+    function cleanAuthError(code) {
+      switch (code) {
+        case "auth/invalid-email":
+          return "Please enter a valid email address.";
+        case "auth/user-not-found":
+        case "auth/wrong-password":
+        case "auth/invalid-credential":
+          return "Invalid email or password.";
+        case "auth/too-many-requests":
+          return "Too many attempts. Please wait and try again.";
+        default:
+          return "Login failed. Please try again.";
+      }
+    }
+  </script>
 </body>
 </html>
