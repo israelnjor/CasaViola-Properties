@@ -278,3 +278,26 @@ function safe(value) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;");
 }
+
+// ==============================
+// AUTO LOGOUT AFTER 10 MINUTES INACTIVITY
+// ==============================
+
+let inactivityTimer;
+const INACTIVITY_LIMIT = 10 * 60 * 1000;
+
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimer);
+
+  inactivityTimer = setTimeout(async () => {
+    alert("Session expired due to inactivity.");
+    await signOut(auth);
+    window.location.href = "login.html";
+  }, INACTIVITY_LIMIT);
+}
+
+["mousemove", "keydown", "click", "scroll", "touchstart"].forEach(eventName => {
+  window.addEventListener(eventName, resetInactivityTimer);
+});
+
+resetInactivityTimer();
